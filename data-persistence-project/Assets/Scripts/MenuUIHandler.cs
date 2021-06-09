@@ -18,11 +18,21 @@ public class MenuUIHandler : MonoBehaviour
     SceneManager.LoadScene(1);
   }
 
+  public void Start()
+  {
+    if (ActualManager.Instance.Name != null)
+    {
+      nameText.text = ActualManager.Instance.Name;
+    }
+  }
+
   public void Quit()
   {
 #if UNITY_EDITOR
+    ActualManager.Instance.SaveName();
     EditorApplication.ExitPlaymode();
 #else
+    ActualManager.Instance.SaveName();
     Application.Quit();
 #endif
   }
@@ -30,5 +40,13 @@ public class MenuUIHandler : MonoBehaviour
   public void SaveName()
   {
     nameText.text = username.text.ToString();
+    ActualManager.Instance.Name = nameText.text;
+  }
+
+  public void ClearName()
+  {
+    nameText.text = "";
+    username.text = "";
+    ActualManager.Instance.Name = "";
   }
 }

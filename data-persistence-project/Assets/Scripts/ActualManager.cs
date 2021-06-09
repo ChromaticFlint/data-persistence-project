@@ -7,6 +7,8 @@ public class ActualManager : MonoBehaviour
 {
   public static ActualManager Instance;
   public string Name;
+  public int TopScore = 0;
+  public string TopScoreName;
 
   private void Awake()
   {
@@ -19,18 +21,23 @@ public class ActualManager : MonoBehaviour
 
     Instance = this;
     DontDestroyOnLoad(gameObject);
+    LoadName();
   }
 
   [System.Serializable]
   class SaveData
   {
     public string Name;
+    public int TopScore;
+    public string TopScoreName;
   }
 
   public void SaveName()
   {
     SaveData data = new SaveData();
     data.Name = Name;
+    data.TopScore = TopScore;
+    data.TopScoreName = TopScoreName;
 
     string json = JsonUtility.ToJson(data);
 
@@ -47,6 +54,8 @@ public class ActualManager : MonoBehaviour
       SaveData data = JsonUtility.FromJson<SaveData>(json);
 
       Name = data.Name;
+      TopScore = data.TopScore;
+      TopScoreName = data.TopScoreName;
     }
   }
 

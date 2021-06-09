@@ -8,6 +8,7 @@ public class UIMainScene : MonoBehaviour
   public void QuitToMenu()
   {
     SceneManager.LoadScene(0);
+    ActualManager.Instance.SaveName();
   }
 
 }
